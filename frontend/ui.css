@@ -1,0 +1,102 @@
+/* ============================================================
+   共享样式层
+   仅包含：设计令牌超集 + 基础重置 + 焦点可达性 + 动效降级
+   各页面专属样式仍写在页面内 <style> 中，本文件不放组件类
+   ============================================================ */
+:root {
+    /* 品牌色 */
+    --navy-900: #121d2e;
+    --navy-800: #18273d;
+    --primary: #1f3a5f;
+    --primary-dark: #16293f;
+    --primary-600: #2a4a72;
+    --navy-50: #f3f6fa;
+    --navy-100: #e7edf5;
+    --gold: #d9b36c;
+    --gold-light: #ecd3a0;
+    --gold-deep: #a8842f;
+
+    /* 中性色（tertiary 已加深至白底对比度 ≥5.5:1，满足 WCAG AA） */
+    --bg: #edf0f4;
+    --card: #ffffff;
+    --ink: #16202e;
+    --text: #2b3648;
+    --text-secondary: #6b7689;
+    --text-tertiary: #5f6979;
+    --border: #e3e8ef;
+    --border-strong: #d2d9e3;
+
+    /* 语义色 */
+    --success: #0e9f6e;
+    --success-bg: #e9f6f0;
+    --warning: #c07e16;
+    --warning-bg: #fbf3e2;
+    --danger: #d14343;
+    --danger-bg: #fdf0f0;
+    --info: #2563eb;
+    --info-bg: #eff4ff;
+
+    /* 阴影 / 圆角（阴影统一带海军蓝色调，非纯黑） */
+    --shadow-xs: 0 1px 2px rgba(18, 29, 46, .05);
+    --shadow-sm: 0 1px 3px rgba(18, 29, 46, .07), 0 1px 2px rgba(18, 29, 46, .04);
+    --shadow-md: 0 8px 22px -8px rgba(18, 29, 46, .16), 0 2px 6px rgba(18, 29, 46, .05);
+    --shadow-lg: 0 28px 64px -16px rgba(18, 29, 46, .32);
+    --r-card: 12px;
+    --r-ctrl: 8px;
+
+    /* 层级标尺（弹窗/浮层统一引用，避免裸 9999） */
+    --z-sticky: 100;
+    --z-modal: 1000;
+    --z-toast: 1010;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+::selection { background: rgba(217, 179, 108, .3); }
+
+/* 滚动条 */
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-thumb { background: #c4ccd8; border-radius: 8px; border: 2px solid transparent; background-clip: padding-box; }
+*::-webkit-scrollbar-thumb:hover { background: #a8b3c2; border: 2px solid transparent; background-clip: padding-box; }
+*::-webkit-scrollbar-track { background: transparent; }
+
+/* 键盘焦点可达性：所有交互元素统一可见焦点环 */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid var(--primary-600);
+    outline-offset: 2px;
+}
+
+/* 按压物理反馈：各页按钮类名不一，按元素统一补 :active 态 */
+button:not(:disabled):active,
+a.btn:active,
+[role="button"]:active {
+    transform: translateY(1px) scale(.99);
+}
+
+/* 尊重系统「减少动态效果」设置：动画/过渡/平滑滚动全部降级 */
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}

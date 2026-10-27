@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+*.dwg
+*.dxf
+*.png
+*.jpg
+*.jpeg
+*.pdf
+*.log
